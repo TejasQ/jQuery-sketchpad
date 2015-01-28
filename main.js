@@ -15,10 +15,13 @@ var settings = {
   },
   started: false,
   moved: false,
+  width: window.innerWidth,
+  height: window.innerHeight,
   size: 10,
   lines: [],
   optionsOpen: false,
-  pixelRatio: 1
+  pixelRatio: 1,
+  element: 'body'
 
 };
 
@@ -50,13 +53,13 @@ var sketch = (function()
       head.appendChild(meta);
 
       canvas = document.createElement('canvas');
-      doc.querySelector('body')
+      doc.querySelector(settings.element)
         .appendChild(canvas);
 
-      canvas.setAttribute("height", window.innerHeight + "px");
-      canvas.setAttribute("width", window.innerWidth + "px");
-      canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = window.innerHeight + 'px';
+      canvas.setAttribute("height", settings.height + "px");
+      canvas.setAttribute("width", settings.width + "px");
+      canvas.style.width = settings.width + 'px';
+      canvas.style.height = settings.height + 'px';
 
       if (!canvas.getContext)
       {
@@ -200,7 +203,7 @@ var sketch = (function()
         yPos = y;
       }
 
-      /*var grad1 = ctx.createLinearGradient(0, 0, window.innerWidth, window.innerHeight);
+      /*var grad1 = ctx.createLinearGradient(0, 0, settings.width, settings.height);
 			grad1.addColorStop(0,    'yellow');
 			grad1.addColorStop(0.25, 'red');
 			grad1.addColorStop(0.50, 'blue');
@@ -234,7 +237,7 @@ var sketch = (function()
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
       ctx.lineWidth = settings.size;
-      /*var grad1 = ctx.createLinearGradient(0, 0, window.innerWidth, window.innerHeight);
+      /*var grad1 = ctx.createLinearGradient(0, 0, settings.width, settings.height);
 			grad1.addColorStop(0,    'yellow');
 			grad1.addColorStop(0.25, 'red');
 			grad1.addColorStop(0.50, 'blue');
@@ -256,7 +259,7 @@ var sketch = (function()
 
     saveImageData: function()
     {
-      var data = ctx.getImageData(0, 0, window.innerWidth, window.innerHeight);
+      var data = ctx.getImageData(0, 0, settings.width, settings.height);
       if (hasLocalStorage)
       {
         try
@@ -280,8 +283,8 @@ var sketch = (function()
       {
         return;
       }
-      canvas.setAttribute("height", window.innerHeight + "px");
-      canvas.setAttribute("width", window.innerWidth + "px");
+      canvas.setAttribute("height", settings.height + "px");
+      canvas.setAttribute("width", settings.width + "px");
       sketch.saveImageData();
     },
 
