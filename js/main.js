@@ -15,8 +15,6 @@ var settings = {
   },
   started: false,
   moved: false,
-  width: window.innerWidth,
-  height: window.innerHeight,
   size: 10,
   lines: [],
   optionsOpen: false,
