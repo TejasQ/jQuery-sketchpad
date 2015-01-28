@@ -39,18 +39,18 @@ var sketch = (function()
     {
 
       var doc = document,
-        head = doc.getElementsByTagName('head')[0],
-        meta = doc.createElement('meta'),
+        //head = doc.getElementsByTagName('head')[0],
+        //meta = doc.createElement('meta'),
         dataURL = null,
         image = new Image(),
         hasLocalStorage = 'localStorage' in window && window['localStorage'] !== null;
 
       pixelRatio = sketch.getPixelRatio();
 
-      meta.setAttribute('name', 'viewport');
-      meta.setAttribute('content', 'width=device-width, user-scalable=no, maximum-scale=' + (1 / pixelRatio) +
-        ', initial-scale=' + (1 / pixelRatio));
-      head.appendChild(meta);
+      //meta.setAttribute('name', 'viewport');
+      //meta.setAttribute('content', 'width=device-width, user-scalable=no, maximum-scale=' + (1 / pixelRatio) +
+      //  ', initial-scale=' + (1 / pixelRatio));
+      //head.appendChild(meta);
 
       canvas = document.createElement('canvas');
       doc.querySelector(settings.element)
@@ -242,97 +242,16 @@ var sketch = (function()
 			grad1.addColorStop(0.25, 'red');
 			grad1.addColorStop(0.50, 'blue');
 			grad1.addColorStop(0.75, 'limegreen');*/
-<<<<<<< Updated upstream
-      //ctx.strokeStyle = grad1;
-      ctx.strokeStyle = 'rgba(' + settings.colors.r + ',' + settings.colors.g + ',' + settings.colors.b + ',' + settings.colors.a + ')';
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.beginPath();
-      ctx.moveTo(settings.lines[id].x, settings.lines[id].y);
-      ctx.lineTo(settings.lines[id].x + moveX, settings.lines[id].y + moveY);
-      ctx.stroke();
-      ctx.closePath();
-
-      return {
-        x: settings.lines[id].x + moveX,
-        y: settings.lines[id].y + moveY
-      };
-    },
-
-    saveImageData: function()
-    {
-      var data = ctx.getImageData(0, 0, settings.width, settings.height);
-      if (hasLocalStorage)
-      {
-        try
-        {
-          localStorage.setItem('sketchpad', canvas.toDataURL("image/png"));
-        }
-        catch (e)
-        {
-          if (e === 'QUOTA_EXCEEDED_ERR')
-          {
-            console.error('Could not save the image data as localStorage max quota has been exceeded.');
-          }
-        }
-      }
-    },
-
-    clearCanvas: function()
-    {
-
-      if (!confirm("Clear the drawing?"))
-      {
-        return;
-      }
-      canvas.setAttribute("height", settings.height + "px");
-      canvas.setAttribute("width", settings.width + "px");
-      sketch.saveImageData();
-    },
-
-    toggleOptions: function()
-    {
-      if (!settings.optionsOpen)
-      {
-        sketch.showDrawingOptions();
-      }
-      else
-      {
-        sketch.closeDrawingOptions();
-      }
-    },
-
-    showDrawingOptions: function()
-    {
-      var doc = document,
-        clearButton = doc.getElementById('clear-canvas');
-      clearButton.style.fontSize = 100 * pixelRatio + '%';
-      clearButton.addEventListener('click', this.clearCanvas, false);
-      doc.querySelector('.options')
-        .style.display = 'block';
-      settings.optionsOpen = true;
-    },
-
-    closeDrawingOptions: function()
-    {
-      var doc = document;
-      doc.getElementById('clear-canvas')
-        .removeEventListener('click', this.clearCanvas, false);
-      doc.querySelector('.options')
-        .style.display = 'none';
-      settings.optionsOpen = false;
-    }
-  };
-=======
 			//ctx.strokeStyle = grad1;
 			ctx.strokeStyle = 'rgba(' + settings.colors.r + ',' + settings.colors.g + ',' + settings.colors.b + ',' + settings.colors.a + ')';
 			ctx.globalCompositeOperation = 'source-over';
 		    ctx.beginPath();
-		    ctx.moveTo(lines[id].x, lines[id].y);
-		    ctx.lineTo(lines[id].x + moveX, lines[id].y + moveY);
+		    ctx.moveTo(settings.lines[id].x, settings.lines[id].y);
+		    ctx.lineTo(settings.lines[id].x + moveX, settings.lines[id].y + moveY);
 		    ctx.stroke();
 		    ctx.closePath();
 
-		    return { x: lines[id].x + moveX, y: lines[id].y + moveY };
+		    return { x: settings.lines[id].x + moveX, y: settings.lines[id].y + moveY };
 		},
 
 		saveImageData: function () {
@@ -382,7 +301,6 @@ var sketch = (function()
 			optionsOpen = false;
 		}
 	};
->>>>>>> Stashed changes
 }());
 
 window.addEventListener('DOMContentLoaded', sketch.init, true);
