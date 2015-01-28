@@ -242,6 +242,7 @@ var sketch = (function()
 			grad1.addColorStop(0.25, 'red');
 			grad1.addColorStop(0.50, 'blue');
 			grad1.addColorStop(0.75, 'limegreen');*/
+<<<<<<< Updated upstream
       //ctx.strokeStyle = grad1;
       ctx.strokeStyle = 'rgba(' + settings.colors.r + ',' + settings.colors.g + ',' + settings.colors.b + ',' + settings.colors.a + ')';
       ctx.globalCompositeOperation = 'source-over';
@@ -321,6 +322,67 @@ var sketch = (function()
       settings.optionsOpen = false;
     }
   };
+=======
+			//ctx.strokeStyle = grad1;
+			ctx.strokeStyle = 'rgba(' + settings.colors.r + ',' + settings.colors.g + ',' + settings.colors.b + ',' + settings.colors.a + ')';
+			ctx.globalCompositeOperation = 'source-over';
+		    ctx.beginPath();
+		    ctx.moveTo(lines[id].x, lines[id].y);
+		    ctx.lineTo(lines[id].x + moveX, lines[id].y + moveY);
+		    ctx.stroke();
+		    ctx.closePath();
+
+		    return { x: lines[id].x + moveX, y: lines[id].y + moveY };
+		},
+
+		saveImageData: function () {
+			var data = ctx.getImageData(0, 0, window.innerWidth, window.innerHeight);
+			if (hasLocalStorage) {
+				try {
+					localStorage.setItem('sketchpad', canvas.toDataURL("image/png"));
+				} catch (e) {
+					if (e === 'QUOTA_EXCEEDED_ERR') {
+						console.error('Could not save the image data as localStorage max quota has been exceeded.');
+					}
+				}
+			}
+		},
+		
+		clearCanvas: function () {
+		
+			if (!confirm("Clear the drawing?")) {
+				return;
+			}
+			canvas.setAttribute("height", window.innerHeight + "px"); 
+			canvas.setAttribute("width",  window.innerWidth + "px");
+			sketch.saveImageData();
+		},
+
+		toggleOptions: function () {
+			if (!optionsOpen) {
+				sketch.showDrawingOptions();
+			} else {
+				sketch.closeDrawingOptions();
+			}
+		},
+
+		showDrawingOptions: function () {
+			var doc = document,
+			clearButton = doc.getElementById('clear-canvas');
+			clearButton.style.fontSize = 100 * pixelRatio + '%';
+			clearButton.addEventListener('click', this.clearCanvas, false);
+			doc.querySelector('.options').style.display = 'block';
+			optionsOpen = true;
+		},
+
+		closeDrawingOptions: function () {
+			var doc = document;
+			doc.getElementById('clear-canvas').removeEventListener('click', this.clearCanvas, false);
+			doc.querySelector('.options').style.display = 'none';
+			optionsOpen = false;
+		}
+	};
+>>>>>>> Stashed changes
 }());
 
 window.addEventListener('DOMContentLoaded', sketch.init, true);
