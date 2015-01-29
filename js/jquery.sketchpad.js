@@ -267,8 +267,8 @@
         if (!confirm("Clear the drawing?")) {
           return;
         }
-        canvas.setAttribute("height", settings.height);
-        canvas.setAttribute("width", settings.width);
+        canvas.setAttribute("height", parseInt(parent.css('height')));
+        canvas.setAttribute("width", parseInt(parent.css('width')));
         this.saveImageData();
       }
     };
