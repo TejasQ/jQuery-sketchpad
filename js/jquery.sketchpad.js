@@ -25,7 +25,9 @@
         moved: false,
         size: 10,
         lines: [],
-        pixelRatio: 1
+        pixelRatio: 1,
+        width: $(this).width(),
+        height: $(this).height()
 
       }, options);
 
@@ -66,8 +68,8 @@
 
         canvas = document.createElement('canvas');
         parent.append(canvas);
-        canvas.setAttribute("height", parseInt(parent.css('height')));
-        canvas.setAttribute("width", parseInt(parent.css('width')));
+        canvas.setAttribute("height", settings.height);
+        canvas.setAttribute("width", settings.width);
 
         if (!canvas.getContext) {
           alert('Your browser does not support Canvas 2D drawing.');
@@ -267,8 +269,8 @@
         if (!confirm("Clear the drawing?")) {
           return;
         }
-        canvas.setAttribute("height", parseInt(parent.css('height')));
-        canvas.setAttribute("width", parseInt(parent.css('width')));
+        canvas.setAttribute("height", settings.height);
+        canvas.setAttribute("width", settings.width);
         this.saveImageData();
       }
     };

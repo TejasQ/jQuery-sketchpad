@@ -23,7 +23,9 @@ jQuery-sketchpad can be extended using the following options:
     b: 0, //blue stroke
     a: 1 //alpha/opacity
   },
-  size: 10 //brush/pencil size
+  size: 10, //brush/pencil size
+  width: $(parent).width(), //assumes width of the parent by default
+  height: $(parent).height()
 }
 ```
 
